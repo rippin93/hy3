@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.19)
-project(Hy3 VERSION "0.1")
+project(Hy3 VERSION "0.56")
 set(CMAKE_CXX_STANDARD 23)
 add_compile_definitions(WLR_USE_UNSTABLE)
-add_compile_options(-Wall -Wextra -Wno-unused-parameter -Wno-unused-value -Wno-missing-field-initializers -Wno-narrowing -Wno-pointer-arith)
+add_compile_options(-Wall -Wextra -Wno-unused-parameter -Wno-unused-value -Wno-missing-field-initializers -Wno-narrowing -Wno-pointer-arith -fpermissive)
 
 # nix workaround
 if(CMAKE_EXPORT_COMPILE_COMMANDS)
@@ -11,7 +11,18 @@ if(CMAKE_EXPORT_COMPILE_COMMANDS)
 endif()
 
 find_package(PkgConfig REQUIRED)
+find_package(Lua REQUIRED)
 pkg_check_modules(DEPS REQUIRED hyprland pixman-1 libdrm pango pangocairo libinput wayland-client xkbcommon)
+
+if(Lua_FOUND AND NOT TARGET Lua::Lua)
+  add_library(Lua::Lua INTERFACE IMPORTED)
+  set_target_properties(
+    Lua::Lua
+    PROPERTIES
+      INTERFACE_INCLUDE_DIRECTORIES "${LUA_INCLUDE_DIR}"
+      INTERFACE_LINK_LIBRARIES "${LUA_LIBRARIES}"
+  )
+endif()
 
 add_library(hy3 SHARED
 	src/main.cpp
@@ -22,6 +33,8 @@ add_library(hy3 SHARED
 	src/shaders.cpp
 	src/render.cpp
 )
+
+target_link_libraries(hy3 PRIVATE Lua::Lua)
 
 configure_file(src/tab.vert ${CMAKE_CURRENT_BINARY_DIR}/src/tab.vert COPYONLY)
 file(READ ${CMAKE_CURRENT_BINARY_DIR}/src/tab.vert SHADER_TAB_VERT)

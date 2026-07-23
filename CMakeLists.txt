@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.19)
-project(Hy3 VERSION "0.56")
+project(Hy3 VERSION "0.1")
 set(CMAKE_CXX_STANDARD 23)
 add_compile_definitions(WLR_USE_UNSTABLE)
-add_compile_options(-Wall -Wextra -Wno-unused-parameter -Wno-unused-value -Wno-missing-field-initializers -Wno-narrowing -Wno-pointer-arith -fpermissive)
+add_compile_options(-Wall -Wextra -Wno-unused-parameter -Wno-unused-value -Wno-missing-field-initializers -Wno-narrowing -Wno-pointer-arith)
 
 # nix workaround
 if(CMAKE_EXPORT_COMPILE_COMMANDS)

@@ -1,6 +1,6 @@
 # Changelog
 
-# Upcoming
+# hl0.56.0.1 and before
 
 - Fix mouse up+left mouse resize
 - Fix tab bars rendering in the wrong orientation on rotated monitors

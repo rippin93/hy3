@@ -1,5 +1,9 @@
 # Changelog
 
+# Upcoming
+
+- Fix mouse up+left mouse resize
+
 # hl0.56.0 and before
 
 - Only compatibility fixes.

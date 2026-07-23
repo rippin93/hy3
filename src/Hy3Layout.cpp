@@ -502,12 +502,8 @@ void Hy3Layout::resizeTarget(const Vector2D& delta, SP<Layout::ITarget> target, 
 		if (target_edge_x == ShiftDirection::Left) resize_delta.x = -resize_delta.x;
 		if (target_edge_y == ShiftDirection::Up) resize_delta.y = -resize_delta.y;
 	} else {
-		target_edge_x = (corner & Layout::CORNER_TOPLEFT) || (corner & Layout::CORNER_BOTTOMLEFT)
-		                  ? ShiftDirection::Left
-		                  : ShiftDirection::Right;
-		target_edge_y = (corner & Layout::CORNER_TOPLEFT) || (corner & Layout::CORNER_TOPRIGHT)
-		                  ? ShiftDirection::Up
-		                  : ShiftDirection::Down;
+		target_edge_x = corner & Layout::CORNER_LEFT ? ShiftDirection::Left : ShiftDirection::Right;
+		target_edge_y = corner & Layout::CORNER_TOP ? ShiftDirection::Up : ShiftDirection::Down;
 	}
 
 	auto horizontal_neighbor = node->findNeighbor(target_edge_x);
